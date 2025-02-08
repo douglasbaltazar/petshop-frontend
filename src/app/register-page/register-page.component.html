@@ -1,0 +1,22 @@
+<div>
+  <form  (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input type="text" formControlName="cpf" placeholder="CPF">
+    </div>
+
+    <div class="form-group">
+      <input type="text" formControlName="nome" placeholder="Informe seu nome">
+    </div>
+
+    <div class="form-group">
+      <input type="password" formControlName="password" placeholder="Senha">
+    </div>
+    <!-- <div class="form-group">
+      <input type="date" formControlName="date">
+    </div> -->
+
+    <button type="submit" class="botao-registro">
+      <i class="fa-solid fa-right-to-bracket"></i> Cadastre-se agora
+    </button>
+  </form>
+</div>
