@@ -15,24 +15,12 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 export class AppComponent {
   title = 'frontend';
   selected: 'login' | 'cadastro' = 'login'
-  bookingForm: FormGroup;
-
   constructor(private fb: FormBuilder) {
-    this.bookingForm = this.fb.group({
-      breed: [''],
-      age: [''],
-      service: [''],
-      date: ['']
-    });
   }
 
   changeSelected(option: 'login' | 'cadastro'): void {
     this.selected = option;
   }
 
-  onSubmit(): void {
-    if (this.bookingForm.valid) {
-      console.log(this.bookingForm.value);
-    }
-  }
+  
 }
