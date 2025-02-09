@@ -1,0 +1,67 @@
+.dashboard {
+  padding: 1rem;
+}
+.stats-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.stats-card {
+  flex: 1;
+  min-width: 250px;
+}
+.card-wrapper {
+  height: 100%;
+  
+}
+.card-wrapper.teal ::ng-deep .p-card {
+  background-color: #00bcd4;
+}
+.card-wrapper.blue ::ng-deep .p-card {
+  background-color: #2196f3;
+}
+.card-wrapper.green ::ng-deep .p-card {
+  background-color: #4caf50;
+}
+.card-wrapper.yellow ::ng-deep .p-card {
+  background-color: #ffc107;
+}
+.card-wrapper ::ng-deep {
+  .p-card {
+    height: 100%;
+    color: white;
+    border-radius: 10px;
+    
+    .p-card-content {
+      padding: 0;
+    }
+    
+    .p-card-body {
+      padding: 1rem;
+    }
+  }
+}
+.stat-content {
+  padding: 1rem 0;
+}
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+.stat-label {
+  opacity: 0.9;
+}
+.stat-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.stat-footer a {
+  color: inherit;
+  text-decoration: none;
+}

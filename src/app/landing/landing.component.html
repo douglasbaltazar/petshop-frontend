@@ -1,0 +1,39 @@
+<div class="landing-container">
+  <main class="main-content">
+    <div class="content-wrapper">
+      <div class="info-section">
+        <h2 class="welcome">Bem vindo ao PetShop</h2>
+        <h1 class="title">Acesse o<br>Dashboard</h1>
+        <div class="features">
+          <div class="feature">
+            <i class="fas fa-check-circle"></i>
+            <span>Se Cadastre ou faça Login para acessar-lo.</span>
+          </div>
+        </div>
+      </div>
+      <div class="booking-section">
+        <div class="pet-selector">
+          <button 
+            [class.active]="selected === 'login'"
+            (click)="changeSelected('login')">
+            Login
+          </button>
+          <button 
+            [class.active]="selected === 'cadastro'"
+            (click)="changeSelected('cadastro')">
+            Cadastro
+          </button>
+        </div>
+
+        <h3>Faça login ou Registre-se para aproveitar o Sistema.</h3>
+        <div *ngIf="selected === 'login'; else outroConteudo">
+          <app-login-page></app-login-page>
+        </div>
+        
+        <ng-template #outroConteudo>
+          <app-register-page></app-register-page>
+        </ng-template>
+      </div>
+    </div>
+  </main>
+</div>

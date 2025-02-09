@@ -36,8 +36,8 @@ export class AuthService {
     )
   }
 
-  signup(name: string, cpf: string, password: string){
-    return this.http.post<LoginResponse>(this.baseUrl + "/register", { name, cpf, password }).pipe(
+  signup(nome: string, cpf: string, password: string, perfil: string = 'cliente'){
+    return this.http.post<LoginResponse>(this.baseUrl + "/register", { cpf, nome, perfil, password }).pipe(
       tap((value) => {
         sessionStorage.setItem("auth-token", value.token)
         sessionStorage.setItem("nome", value.nome),

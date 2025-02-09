@@ -1,0 +1,53 @@
+.navbar {
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  
+  .nav-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      
+      span {
+        color: #0099ff;
+      }
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+
+    a {
+      color: #4a5568;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: #2d3748;
+      }
+    }
+  }
+
+  .contact-info {
+    text-align: right;
+
+    .phone {
+      color: #0099ff;
+      font-weight: 600;
+    }
+
+    .hours {
+      font-size: 0.875rem;
+      color: #718096;
+    }
+  }
+}
