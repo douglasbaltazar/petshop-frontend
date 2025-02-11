@@ -1,24 +1,22 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NavbarComponent } from "./navbar/navbar.component";
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, NavbarComponent],
+  imports: [RouterOutlet, CommonModule, NavbarComponent, SidebarComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
   title = 'frontend';
-  selected: 'login' | 'cadastro' = 'login'
-  constructor(private fb: FormBuilder) {
-  }
+  constructor(private router: Router) {}
 
-  changeSelected(option: 'login' | 'cadastro'): void {
-    this.selected = option;
+  get shouldShowMenu(): boolean {
+    return this.router.url !== '/';
   }
 
   

@@ -1,0 +1,46 @@
+<div class="dashboard">
+  <div class="header">
+    <h1>{{ id ? 'Editar Raça' : 'Cadastro de Raça' }}</h1>
+
+    
+    
+    <p-button
+      label="Voltar"
+      icon="fa-solid fa-arrow-left"
+      severity="primary"
+    ></p-button>
+  </div>
+  <div class="card">
+    <form [formGroup]="cadastroForm" (ngSubmit)="salvar()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="descricao">Descrição</label>
+          <input
+            id="descricao"
+            type="text"
+            pInputText
+            formControlName="descricao"
+            placeholder="Digite a descrição"
+          />
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <p-button
+          label="Salvar"
+          icon="pi pi-check"
+          severity="success"
+          type="submit"
+          [disabled]="cadastroForm.invalid"
+        ></p-button>
+        <p-button
+          label="Limpar"
+          icon="pi pi-times"
+          severity="secondary"
+          type="button"
+          (click)="limpar()"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+</div>
