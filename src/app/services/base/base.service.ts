@@ -12,15 +12,11 @@ export class BaseService<T> {
   constructor(protected http: HttpClient) {}
 
   listar(): Observable<T[]> {
-    return this.http.get<T[]>(`${this.baseUrl}/listar`);
+    return this.http.get<T[]>(`${this.baseUrl}`);
   }
 
   gravar(data: T): Observable<T> {
-    return this.http.post<T>(`${this.baseUrl}/gravar`, data);
-  }
-
-  gravarLista(data: T[]): Observable<T[]> {
-    return this.http.post<T[]>(`${this.baseUrl}/gravar/lista`, data);
+    return this.http.post<T>(`${this.baseUrl}`, data);
   }
 
   paginado(page: number, size: number): Observable<{ content: T[]; totalElements: number }> {
@@ -30,18 +26,14 @@ export class BaseService<T> {
   }
 
   atualizar(id: number, data: T): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/atualizar/${id}`, data);
+    return this.http.put<T>(`${this.baseUrl}/${id}`, data);
   }
 
   apagarPorId(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.baseUrl}/apagar/${id}`);
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
   }
 
   getDto(id: number): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/dto/${id}`);
-  }
-
-  getEntidade(id: number): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/entidade/${id}`);
+    return this.http.get<T>(`${this.baseUrl}/${id}`);
   }
 }

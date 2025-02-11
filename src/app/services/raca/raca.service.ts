@@ -9,6 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class RacaService extends BaseService<Raca> {
   constructor(protected override http: HttpClient) {
     super(http);
-    this.baseUrl = 'http://localhost:8080/api/racas'; // Definir o endpoint específico
+    this.baseUrl = 'http://localhost:8080/racas';
   }
 }

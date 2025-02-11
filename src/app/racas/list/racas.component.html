@@ -1,7 +1,8 @@
+<p-confirmDialog></p-confirmDialog>
 <div class="dashboard">
   <div class="header">
     <h1>Raças</h1>
-    <p-button label="Cadastre um Novo" icon="fa-solid fa-plus" severity="primary"></p-button>
+    <p-button label="Cadastre um Novo" icon="fa-solid fa-plus" severity="primary" (click)="cadastrar()"></p-button>
   </div>
   <div class="card">
     <p-table
@@ -21,10 +22,10 @@
       <ng-template pTemplate="body" let-item>
         <tr>
           <td class="text-align">{{ item.id }}</td>
-          <td class="text-align">{{ item.description }}</td>
+          <td class="text-align">{{ item.descricao }}</td>
           <td class="text-align btn-wrapper">
-            <p-button icon="fa-solid fa-pen" severity="success"/>
-            <p-button icon="fa-solid fa-remove" severity="danger"/>
+            <p-button icon="fa-solid fa-pen" severity="success" (click)="editar(item.id)"/>
+            <p-button icon="fa-solid fa-remove" severity="danger" (onClick)="deleteItem(item)"/>
           </td>
         </tr>
       </ng-template>

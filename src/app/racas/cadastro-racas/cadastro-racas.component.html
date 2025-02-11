@@ -1,13 +1,13 @@
 <div class="dashboard">
   <div class="header">
     <h1>{{ id ? 'Editar Raça' : 'Cadastro de Raça' }}</h1>
-
     
     
     <p-button
       label="Voltar"
       icon="fa-solid fa-arrow-left"
       severity="primary"
+      (click)="voltar()"
     ></p-button>
   </div>
   <div class="card">
