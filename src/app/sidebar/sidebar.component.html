@@ -3,5 +3,8 @@
     <i class="fa-solid fa-hospital"></i>
     <h2>Pet Shop</h2>
   </div>
-  <p-menu [model]="this.menuItems" [styleClass]="'custom-menu'"></p-menu>
+  <!-- <p-menu [model]="this.menuItems" [styleClass]="'custom-menu'"></p-menu> -->
+  <div class="background-menu">
+    <p-panelMenu [model]="menuItems" [styleClass]="'custom-menu'"></p-panelMenu>
+  </div>
 </div>

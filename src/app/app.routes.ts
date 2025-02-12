@@ -4,11 +4,17 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LandingComponent } from './landing/landing.component';
 import { RacasComponent } from './racas/list/racas.component';
 import { CadastroRacasComponent } from './racas/cadastro-racas/cadastro-racas.component';
+import { CadastroClientesComponent } from './clientes/cadastro-clientes/cadastro-clientes.component';
+import { ListagemClientesComponent } from './clientes/listagem-clientes/listagem-clientes.component';
+import { AuthService } from './services/auth/auth.service';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'racas', component: RacasComponent },
-  { path: 'racas/novo', component: CadastroRacasComponent },
-  { path: 'racas/:id', component: CadastroRacasComponent }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthService] },
+  { path: 'racas', component: RacasComponent, canActivate: [AuthService] },
+  { path: 'racas/novo', component: CadastroRacasComponent, canActivate: [AuthService] },
+  { path: 'racas/:id', component: CadastroRacasComponent, canActivate: [AuthService] },
+  { path: 'clientes', component: ListagemClientesComponent, canActivate: [AuthService] },
+  { path: 'cliente/novo', component: CadastroClientesComponent, canActivate: [AuthService] },
+  { path: 'cliente/:id', component: CadastroClientesComponent, canActivate: [AuthService] },
 ];

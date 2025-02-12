@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../services/auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-page',
@@ -13,7 +14,7 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class RegisterPageComponent {
   registerForm: FormGroup;
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       cpf: [''],
       password: [''],
@@ -28,7 +29,8 @@ export class RegisterPageComponent {
       .signup(this.registerForm.value.nome, this.registerForm.value.cpf, this.registerForm.value.password)
       .subscribe({
         next: () => {
-          console.log('deu certo')
+          console.log('deu certo');
+          this.router.navigate(['/dashboard'])
         },
         error: () =>
           console.log('deu erro')

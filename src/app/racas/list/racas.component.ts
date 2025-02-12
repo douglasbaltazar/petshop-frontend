@@ -30,7 +30,9 @@ export class RacasComponent implements OnInit {
 
   carregarDados() {
     this.racaService.listar().subscribe((racas) => {
-      this.items = racas;
+      if(racas) {
+        this.items = racas;
+      }
     })
   }
 
