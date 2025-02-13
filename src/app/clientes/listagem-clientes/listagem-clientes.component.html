@@ -43,9 +43,9 @@
               [icon]="expanded ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-right'"
             />
           </td>
-          <td class="text-align">{{ item.id }}</td>
-          <td class="text-align">{{ item.nome }}</td>
-          <td class="text-align">{{ item.cpf }}</td>
+          <td class="text-align">{{ item.usuario.id }}</td>
+          <td class="text-align">{{ item.usuario.nome }}</td>
+          <td class="text-align">{{ item.usuario.cpf }}</td>
           <td class="text-align btn-wrapper">
             <p-button
               icon="fa-solid fa-pen"
@@ -65,48 +65,100 @@
           <td colspan="5">Não há dados.</td>
         </tr>
       </ng-template>
-      <ng-template pTemplate="rowexpansion" let-product>
+      <ng-template pTemplate="rowexpansion" let-cliente>
         <tr>
           <td colspan="7">
-            <div class="p-3">
-              <p-table [value]="product.orders" dataKey="id">
-                <ng-template pTemplate="header">
-                  <tr>
-                    <th pSortableColumn="id">
-                      Id <p-sortIcon field="price" />
-                    </th>
-                    <th pSortableColumn="customer">
-                      Customer <p-sortIcon field="customer" />
-                    </th>
-                    <th pSortableColumn="date">
-                      Date <p-sortIcon field="date" />
-                    </th>
-                    <th pSortableColumn="amount">
-                      Amount <p-sortIcon field="amount" />
-                    </th>
-                    <th pSortableColumn="status">
-                      Status <p-sortIcon field="status" />
-                    </th>
-                    <th style="width: 4rem"></th>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="body" let-order>
-                  <tr>
-                    <td>{{ order.id }}</td>
-                    <td>{{ order.customer }}</td>
-                    <td>{{ order.date }}</td>
-                    <td><p-button type="button" icon="pi pi-search" /></td>
-                  </tr>
-                </ng-template>
-                <ng-template pTemplate="emptymessage">
-                  <tr>
-                    <td colspan="6">
-                      There are no order for this product yet.
-                    </td>
-                  </tr>
-                </ng-template>
-              </p-table>
-            </div>
+            <p-panel header="Endereços" [toggleable]="true" [collapsed]="false">
+              
+              <div class="p-3">
+                <p-table [value]="cliente.enderecos" dataKey="id">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>
+                        ID
+                      </th>
+                      <th>
+                        Logradouro
+                      </th>
+                      <th>
+                        Cidade
+                      </th>
+                      <th>
+                        Bairro 
+                      </th>
+                      <th>
+                        Complemento
+                      </th>
+                      <th style="text-align: center">Ações</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-endereco>
+                    <tr>
+                      <td>{{ endereco.id }}</td>
+                      <td>{{ endereco.logradouro }}</td>
+                      <td>{{ endereco.cidade }}</td>
+                      <td>{{ endereco.bairro }}</td>
+                      <td>{{ endereco.complemento }}</td>
+                      <td class="text-align btn-wrapper">
+                        <p-button
+                          icon="fa-solid fa-pen"
+                          severity="success"
+                          (click)="editar(endereco.id)"
+                        />
+                        <p-button
+                          icon="fa-solid fa-remove"
+                          severity="danger"
+                          (onClick)="deleteItem(endereco)"
+                        />
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="6">
+                        Não há dados.
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </p-panel>
+            <p-panel header="Contatos" [toggleable]="true" [collapsed]="false">
+
+              <div class="p-3">
+                <p-table [value]="cliente.contatos" dataKey="id">
+                  <ng-template pTemplate="header">
+                    <tr>
+                      <th>
+                        ID
+                      </th>
+                      <th>
+                        Tipo
+                      </th>
+                      <th>
+                        TAG
+                      </th>
+                      <th style="text-align: center">Ações</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-order>
+                    <tr>
+                      <td>{{ order.id }}</td>
+                      <td>{{ order.tipo }}</td>
+                      <td>{{ order.tag }}</td>
+                      <td><p-button type="button" icon="pi pi-search" /></td>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="emptymessage">
+                    <tr>
+                      <td colspan="6">
+                        Não há dados.
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </p-panel>
           </td>
         </tr>
       </ng-template>

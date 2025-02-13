@@ -9,28 +9,29 @@ import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng
 import { UsuarioService } from '../../services/usuario/usuario.service';
 import { Usuario } from '../../models/usuario.type';
 import { TagModule } from 'primeng/tag'
+import { PanelModule } from 'primeng/panel';
 
 @Component({
   selector: 'app-listagem-clientes',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule, TagModule],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, TagModule, PanelModule],
   templateUrl: './listagem-clientes.component.html',
   styleUrl: './listagem-clientes.component.scss',
   providers: [ConfirmationService, ClienteService, MessageService]
 })
 export class ListagemClientesComponent implements OnInit {
-items: Usuario[] = [];
+items: Cliente[] = [];
 expandedRows = {};
 
 
-  constructor(private router: Router, private clienteService: UsuarioService, private confirmationService: ConfirmationService,
+  constructor(private router: Router, private clienteService: ClienteService, private confirmationService: ConfirmationService,
      private messageService: MessageService
   ) {
 
   }
 
   onRowExpand(event: TableRowExpandEvent) {
-    this.messageService.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+    console.log(event.data);
   }
 
   onRowCollapse(event: TableRowCollapseEvent) {

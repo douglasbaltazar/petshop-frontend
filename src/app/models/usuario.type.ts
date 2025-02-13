@@ -4,5 +4,6 @@ export interface Usuario {
   updated_at?: Date;
   cpf: string;
   nome: string;
+  senha?: string;
   perfil: string;
 }

@@ -1,1 +1,87 @@
-<p>cadastro-clientes works!</p>
+<div class="dashboard">
+  <div class="header">
+    <h1>{{ id ? "Editar Cliente" : "Cadastro de Cliente" }}</h1>
+    <p-button
+      label="Voltar"
+      icon="fa-solid fa-arrow-left"
+      severity="primary"
+      (click)="voltar()"
+    ></p-button>
+  </div>
+
+  <div class="card">
+    <form [formGroup]="clienteForm"  (ngSubmit)="salvar()" class="form">
+      <p-panel header="Cliente">
+        <div class="form-container">
+          <div class="form-field">
+            <label for="nome">Nome:</label>
+            <input
+              id="nome"
+              type="text"
+              pInputText
+              formControlName="nome"
+              placeholder="Digite o Nome"
+            />
+          </div>
+          <div class="form-field">
+            <label for="cpf">CPF:</label>
+            <input
+              id="cpf"
+              type="text"
+              pInputText
+              formControlName="cpf"
+              placeholder="Digite o CPF"
+            />
+          </div>
+          <div class="form-field">
+            <label for="senha">Senha:</label>
+            <input
+              id="senha"
+              type="password"
+              pInputText
+              formControlName="senha"
+              placeholder="Digite a Senha"
+            />
+          </div>
+          <div class="form-field">
+            <label>Perfil:</label>
+            <div class="radio-group">
+              <p-radioButton
+                name="perfil"
+                value="Cliente"
+                formControlName="perfil"
+                inputId="cliente"
+              />
+              <label for="cliente">Cliente</label>
+
+              <p-radioButton
+                name="perfil"
+                value="Admin"
+                formControlName="perfil"
+                inputId="admin"
+              />
+              <label for="admin">Admin</label>
+            </div>
+          </div>
+        </div>
+      </p-panel>
+
+      <div class="btn-wrapper">
+        <p-button
+          label="Salvar"
+          icon="fa-solid fa-check"
+          severity="success"
+          type="submit"
+          [disabled]="clienteForm.invalid"
+        ></p-button>
+        <p-button
+          label="Limpar"
+          icon="fa-solid fa-times"
+          severity="secondary"
+          type="button"
+          (click)="limpar()"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+.dashboard {
+  padding: 1rem;
+  background-color: rgb(221, 226, 206);
+  border-radius: 8px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.panel-cadastro {
+  display: grid;
+}
+
+.btn-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Garante que os campos fiquem lado a lado */
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.radio-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form-container {
+    grid-template-columns: 1fr; /* Deixa os campos em uma única coluna em telas pequenas */
+  }
+}
