@@ -1,0 +1,83 @@
+<div class="dashboard">
+  <div class="header">
+    <h1>{{ id ? "Editar Atendimento" : "Cadastro de Atendimentos" }}</h1>
+
+    <p-button
+      label="Voltar"
+      icon="fa-solid fa-arrow-left"
+      severity="primary"
+      (click)="voltar()"
+    ></p-button>
+  </div>
+  <div class="card">
+    <form [formGroup]="cadastroForm" (ngSubmit)="salvar()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="descricao">Descrição</label>
+          <input
+            id="descricao"
+            type="text"
+            pInputText
+            formControlName="descricao"
+            placeholder="Digite a descrição"
+          />
+        </div>
+      </div>
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="valor">Valor</label>
+          <input
+            id="valor"
+            type="number"
+            pInputText
+            formControlName="valor"
+            placeholder="Digite o valor"
+          />
+        </div>
+      </div>
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="data">Data de Atendimento</label>
+          <p-calendar
+            id="data"
+            formControlName="data"
+            dateFormat="dd/mm/yy"
+            placeholder="Selecione a data"
+          >
+          </p-calendar>
+        </div>
+      </div>
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="pet">Pet</label>
+          <p-dropdown
+            id="pet"
+            [options]="pets"
+            [emptyMessage]="'Não há nenhum pet cadastrado'"
+            formControlName="pet"
+            optionLabel="nome"
+            placeholder="Selecione um Pet"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <p-button
+          label="Salvar"
+          icon="pi pi-check"
+          severity="success"
+          type="submit"
+          [disabled]="cadastroForm.invalid"
+        ></p-button>
+        <p-button
+          label="Limpar"
+          icon="pi pi-times"
+          severity="secondary"
+          type="button"
+          (click)="limpar()"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+</div>

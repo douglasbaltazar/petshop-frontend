@@ -9,6 +9,8 @@ import { ListagemClientesComponent } from './clientes/listagem-clientes/listagem
 import { AuthService } from './services/auth/auth.service';
 import { CadastroPetsComponent } from './pets/cadastro-pets/cadastro-pets.component';
 import { ListComponent } from './pets/list/list.component';
+import { ListComponent as ListAtendimentosComponent } from './atendimentos/list/list.component';
+import { CadastroAtendimentosComponent } from './atendimentos/cadastro-atendimentos/cadastro-atendimentos.component';
 
 export const routes: Routes = [
   { path: '', component: LandingComponent },
@@ -22,5 +24,8 @@ export const routes: Routes = [
   { path: 'pets', component: ListComponent, canActivate: [AuthService] },
   { path: 'pets/novo', component: CadastroPetsComponent, canActivate: [AuthService] },
   { path: 'pets/:id', component: CadastroPetsComponent, canActivate: [AuthService] },
+  { path: 'atendimentos', component: ListAtendimentosComponent, canActivate: [AuthService] },
+  { path: 'atendimentos/novo', component: CadastroAtendimentosComponent, canActivate: [AuthService] },
+  { path: 'atendimentos/:id', component: CadastroAtendimentosComponent, canActivate: [AuthService] },
   
 ];

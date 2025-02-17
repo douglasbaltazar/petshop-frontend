@@ -6,11 +6,12 @@ import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { Pet } from '../../models/pet.type';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, DatePipe],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   providers: [ConfirmationService, PetService, MessageService]

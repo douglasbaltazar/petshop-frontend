@@ -1,0 +1,17 @@
+.dashboard {
+  padding: 1rem;
+  background-color: rgb(221, 226, 206);
+  border-radius: 8px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.btn-wrapper {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px
+}
