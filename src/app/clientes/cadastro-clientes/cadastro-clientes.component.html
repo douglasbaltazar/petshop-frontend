@@ -38,6 +38,7 @@
             <input
               id="senha"
               type="password"
+              [disabled]="id ? true : false"
               pInputText
               formControlName="senha"
               placeholder="Digite a Senha"

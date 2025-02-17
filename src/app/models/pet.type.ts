@@ -8,5 +8,5 @@ export interface Pet {
   cliente: Cliente;
   raca: Raca;
   nome: string;
-  data_nascimento: Date;
+  dataNascimento: Date;
 }

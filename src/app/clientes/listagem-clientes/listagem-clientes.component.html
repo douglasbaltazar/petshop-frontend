@@ -18,8 +18,6 @@
       [rowsPerPageOptions]="[5, 10, 20]"
       [expandedRowKeys]="expandedRows"
       dataKey="id"
-      (onRowExpand)="onRowExpand($event)"
-      (onRowCollapse)="onRowCollapse($event)"
     >
       <ng-template pTemplate="header">
         <tr>
@@ -69,7 +67,15 @@
         <tr>
           <td colspan="7">
             <p-panel header="Endereços" [toggleable]="true" [collapsed]="false">
-              
+              <div class="header">
+                <h1></h1>
+                <p-button
+                  label="Novo Endereço"
+                  icon="fa-solid fa-plus"
+                  severity="primary"
+                  (click)="editarEndereco(cliente)"
+                ></p-button>
+              </div>
               <div class="p-3">
                 <p-table [value]="cliente.enderecos" dataKey="id">
                   <ng-template pTemplate="header">
@@ -81,13 +87,13 @@
                         Logradouro
                       </th>
                       <th>
-                        Cidade
+                        Complemento
                       </th>
                       <th>
                         Bairro 
                       </th>
                       <th>
-                        Complemento
+                        Cidade
                       </th>
                       <th style="text-align: center">Ações</th>
                     </tr>
@@ -96,19 +102,14 @@
                     <tr>
                       <td>{{ endereco.id }}</td>
                       <td>{{ endereco.logradouro }}</td>
-                      <td>{{ endereco.cidade }}</td>
-                      <td>{{ endereco.bairro }}</td>
                       <td>{{ endereco.complemento }}</td>
+                      <td>{{ endereco.bairro }}</td>
+                      <td>{{ endereco.cidade }}</td>
                       <td class="text-align btn-wrapper">
-                        <p-button
-                          icon="fa-solid fa-pen"
-                          severity="success"
-                          (click)="editar(endereco.id)"
-                        />
                         <p-button
                           icon="fa-solid fa-remove"
                           severity="danger"
-                          (onClick)="deleteItem(endereco)"
+                          (onClick)="deleteEndereco(endereco)"
                         />
                       </td>
                     </tr>
@@ -124,6 +125,15 @@
               </div>
             </p-panel>
             <p-panel header="Contatos" [toggleable]="true" [collapsed]="false">
+              <div class="header">
+                <h1></h1>
+                <p-button
+                  label="Novo Contato"
+                  icon="fa-solid fa-plus"
+                  severity="primary"
+                  (click)="editarContato(cliente)"
+                ></p-button>
+              </div>
 
               <div class="p-3">
                 <p-table [value]="cliente.contatos" dataKey="id">
@@ -136,17 +146,23 @@
                         Tipo
                       </th>
                       <th>
-                        TAG
+                        Contato
                       </th>
                       <th style="text-align: center">Ações</th>
                     </tr>
                   </ng-template>
-                  <ng-template pTemplate="body" let-order>
+                  <ng-template pTemplate="body" let-contato>
                     <tr>
-                      <td>{{ order.id }}</td>
-                      <td>{{ order.tipo }}</td>
-                      <td>{{ order.tag }}</td>
-                      <td><p-button type="button" icon="pi pi-search" /></td>
+                      <td>{{ contato.id }}</td>
+                      <td>{{ contato.tipo }}</td>
+                      <td>{{ contato.tag }}</td>
+                      <td class="text-align btn-wrapper">
+                        <p-button
+                          icon="fa-solid fa-remove"
+                          severity="danger"
+                          (onClick)="deleteContato(contato)"
+                        />
+                      </td>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="emptymessage">
@@ -164,4 +180,8 @@
       </ng-template>
     </p-table>
   </div>
+  <app-edit-endereco [visible]="editEndereco" (dialogClosed)="onFecharDialogEndereco()" (enderecoSalvo)="cadastrarEndereco($event)"></app-edit-endereco>
+  <app-edit-contato [visible]="editContato" (dialogClosed)="onFecharDialogContato()" (contatoSalvo)="cadastrarContato($event)"></app-edit-contato>
+
 </div>
+

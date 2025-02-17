@@ -85,12 +85,13 @@ export class CadastroClientesComponent implements OnInit {
   }
 
   voltar() {
-    this.router.navigate(['racas']);
+    this.router.navigate(['clientes']);
   }
 
   limpar(): void {
     this.clienteForm.reset();
   }
+  
 
 }
 

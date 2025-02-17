@@ -1,0 +1,88 @@
+<div class="dashboard">
+  <div class="header">
+    <h1>{{ id ? "Editar Pet" : "Cadastro de Pets" }}</h1>
+
+    <p-button
+      label="Voltar"
+      icon="fa-solid fa-arrow-left"
+      severity="primary"
+      (click)="voltar()"
+    ></p-button>
+  </div>
+  <div class="card">
+    <form [formGroup]="cadastroForm" (ngSubmit)="salvar()">
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="nome">Nome</label>
+          <input
+            id="nome"
+            type="text"
+            pInputText
+            formControlName="nome"
+            placeholder="Digite o nome"
+          />
+        </div>
+      </div>
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="dataNascimento">Data de Nascimento</label>
+          <p-calendar
+            id="dataNascimento"
+            formControlName="dataNascimento"
+            dateFormat="dd/mm/yy"
+            placeholder="Selecione a data"
+          >
+          </p-calendar>
+        </div>
+      </div>
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="raca">Raça</label>
+          <p-dropdown
+            id="raca"
+            [options]="racas"
+            [emptyMessage]="'Não há nenhuma raça cadastrada'"
+            formControlName="raca"
+            optionLabel="descricao"
+            placeholder="Selecione uma raça"
+          >
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="p-fluid">
+        <div class="p-field">
+          <label for="cliente">Cliente</label>
+          <p-dropdown
+            id="cliente"
+            [options]="clientes"
+            formControlName="cliente"
+            [emptyMessage]="'Não há nenhum cliente cadastrado'"
+            placeholder="Selecione um cliente"
+          >
+            <ng-template let-cliente pTemplate="item">
+              {{ cliente.usuario?.nome || "Sem nome" }}
+            </ng-template>
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="btn-wrapper">
+        <p-button
+          label="Salvar"
+          icon="pi pi-check"
+          severity="success"
+          type="submit"
+          [disabled]="cadastroForm.invalid"
+        ></p-button>
+        <p-button
+          label="Limpar"
+          icon="pi pi-times"
+          severity="secondary"
+          type="button"
+          (click)="limpar()"
+        ></p-button>
+      </div>
+    </form>
+  </div>
+</div>

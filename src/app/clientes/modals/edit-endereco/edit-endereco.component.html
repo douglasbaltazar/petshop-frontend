@@ -1,0 +1,78 @@
+<p-dialog
+  header="Header"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '50rem' }"
+  (onHide)="fechar()"
+>
+  <ng-template pTemplate="header">
+    <div
+      class="inline-flex align-items-center justify-content-center gap-2"
+    >
+    <span><strong>Cadastrar novo endereço</strong></span>
+    </div>
+  </ng-template>
+  <div class="card">
+    <form [formGroup]="enderecoForm" (ngSubmit)="salvar()" class="form">
+      <div class="form-container">
+        <div class="form-field">
+          <label for="logradouro">Logradouro:</label>
+          <input
+            id="logradouro"
+            type="text"
+            pInputText
+            formControlName="logradouro"
+            placeholder="Digite o logradouro"
+          />
+        </div>
+        <div class="form-field">
+          <label for="complemento">Complemento:</label>
+          <input
+            id="complemento"
+            type="text"
+            pInputText
+            formControlName="complemento"
+            placeholder="Digite a complemento"
+          />
+        </div>
+        <div class="form-field">
+          <label for="bairro">Bairro:</label>
+          <input
+            id="bairro"
+            type="text"
+            pInputText
+            formControlName="bairro"
+            placeholder="Digite o bairro"
+          />
+        </div>
+        <div class="form-field">
+          <label for="cidade">Cidade:</label>
+          <input
+            id="cidade"
+            type="text"
+            pInputText
+            formControlName="cidade"
+            placeholder="Digite a cidade"
+          />
+        </div>
+        
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Fechar"
+      [text]="true"
+      severity="secondary"
+      (onClick)="fechar()"
+    />
+    <p-button
+      label="Salvar"
+      [outlined]="true"
+      severity="secondary"
+      (onClick)="salvar()"
+    />
+  </ng-template>
+</p-dialog>

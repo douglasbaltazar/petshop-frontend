@@ -1,0 +1,66 @@
+<p-dialog
+  header="Header"
+  [(visible)]="visible"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '25rem' }"
+  (onHide)="fechar()"
+>
+  <ng-template pTemplate="header">
+    <div class="inline-flex align-items-center justify-content-center gap-2">
+      <span><strong>Cadastrar novo Contato</strong></span>
+    </div>
+  </ng-template>
+  <div class="card">
+    <form [formGroup]="contatoForm" (ngSubmit)="salvar()" class="form">
+      <div class="form-container">
+        <div class="form-field">
+          <label for="tag">Contato:</label>
+          <input
+            id="tag"
+            type="text"
+            pInputText
+            formControlName="tag"
+            placeholder="Digite o Contato"
+          />
+        </div>
+        <div></div>
+        <div class="form-field">
+          <label>Tipo:</label>
+          <div class="radio-group">
+            <p-radioButton
+              name="tipo"
+              value="telefone"
+              formControlName="tipo"
+              inputId="tipo"
+            />
+            <label for="tipo">Telefone</label>
+
+            <p-radioButton
+              name="tipo"
+              value="email"
+              formControlName="tipo"
+              inputId="tipo"
+            />
+            <label for="tipo">E-mail</label>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button
+      label="Fechar"
+      [text]="true"
+      severity="secondary"
+      (onClick)="fechar()"
+    />
+    <p-button
+      label="Salvar"
+      [outlined]="true"
+      severity="secondary"
+      (onClick)="salvar()"
+    />
+  </ng-template>
+</p-dialog>

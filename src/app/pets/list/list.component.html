@@ -1,0 +1,44 @@
+<p-confirmDialog></p-confirmDialog>
+<div class="dashboard">
+  <div class="header">
+    <h1>Pets</h1>
+    <p-button label="Cadastre um Novo" icon="fa-solid fa-plus" severity="primary" (click)="cadastrar()"></p-button>
+  </div>
+  <div class="card">
+    <p-table
+      [value]="items"
+      [paginator]="true"
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [rowsPerPageOptions]="[5, 10, 20]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 20%; text-align: center">ID</th>
+          <th style="width: 20%; text-align: center">Nome</th>
+          <th style="width: 20%; text-align: center">Data Nascimento</th>
+          <th style="width: 20%; text-align: center">Nome Tutor</th>
+          <th style="width: 20%; text-align: center">Ações</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-item>
+        <tr>
+          <td class="text-align">{{ item.id }}</td>
+          <td class="text-align">{{ item.nome }}</td>
+          <td class="text-align">{{ item.dataNascimento }}</td>
+          <td class="text-align">{{ item.cliente.usuario.nome }}</td>
+          <td class="text-align btn-wrapper">
+            <p-button icon="fa-solid fa-pen" severity="success" (click)="editar(item.id)"/>
+            <p-button icon="fa-solid fa-remove" severity="danger" (onClick)="deleteItem(item)"/>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+            <td colspan="5">Não há dados.</td>
+        </tr>
+    </ng-template>
+    </p-table>
+    
+  </div>
+</div>
