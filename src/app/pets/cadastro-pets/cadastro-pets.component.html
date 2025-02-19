@@ -59,11 +59,9 @@
             [options]="clientes"
             formControlName="cliente"
             [emptyMessage]="'Não há nenhum cliente cadastrado'"
+            optionLabel="usuario.nome"
             placeholder="Selecione um cliente"
           >
-            <ng-template let-cliente pTemplate="item">
-              {{ cliente.usuario?.nome || "Sem nome" }}
-            </ng-template>
           </p-dropdown>
         </div>
       </div>
