@@ -3,7 +3,7 @@
 <div class="dashboard">
   <div class="header">
     <h1>Atendimentos</h1>
-    <p-button label="Cadastre um Novo" icon="fa-solid fa-plus" severity="primary" (click)="cadastrar()"></p-button>
+    <p-button label="Cadastre um Novo" icon="fa-solid fa-plus" severity="primary" (click)="cadastrar()" *ngIf="authService.isAdmin()"></p-button>
   </div>
   <div class="card">
     <p-table
@@ -40,7 +40,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-            <td colspan="5">Não há dados.</td>
+            <td colspan="12">Não há dados.</td>
         </tr>
     </ng-template>
     </p-table>

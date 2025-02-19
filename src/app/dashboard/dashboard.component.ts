@@ -13,6 +13,8 @@ import { CurrencyPipe } from '@angular/common';
 })
 export class DashboardComponent implements OnInit {
 
+  nome?: string;
+
   info?: Info;
 
   constructor(private infoService: InfoService) {
@@ -27,6 +29,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.carregarDados();
+    let nome = sessionStorage.getItem("nome");
+    if(nome) {
+      this.nome = nome;
+    }
   }
   
 

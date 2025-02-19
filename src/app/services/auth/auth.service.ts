@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginResponse } from '../../models/login-response.type';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
@@ -11,7 +11,13 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@a
 })
 export class AuthService {
   baseUrl = `${environment.API_URL}/auth`;
-  constructor(private http: HttpClient, private router: Router) { }
+  private currentUserSubject: BehaviorSubject<any>;
+  public currentUser: Observable<any>;
+  constructor(private http: HttpClient, private router: Router) { 
+    this.currentUserSubject = new BehaviorSubject<any>(this.getTokenInfo());
+    this.currentUser = this.currentUserSubject.asObservable();
+
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -34,6 +40,20 @@ export class AuthService {
 
   validate(token: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.baseUrl}/validate/${token}`);
+  }
+
+  getTokenInfo() {
+    const token = sessionStorage.getItem('auth-token');
+    if (token) {
+      console.log(JSON.parse(atob(token.split('.')[1])))
+      return JSON.parse(atob(token.split('.')[1]));
+    }
+    return null;
+  }
+  
+  isAdmin(): boolean {
+    const user = this.currentUserSubject.value;
+    return user && user.perfil === 'Admin';
   }
 
   login(cpf: string, password: string){
