@@ -11,13 +11,16 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '../../services/cliente/cliente.service';
 import { Atendimento } from '../../models/atendimento.type';
 import { AtendimentosService } from '../../services/atendimentos/atendimentos.service';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro-atendimentos',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, DropdownModule, CalendarModule],
+  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, DropdownModule, CalendarModule, ToastModule],
   templateUrl: './cadastro-atendimentos.component.html',
-  styleUrl: './cadastro-atendimentos.component.scss'
+  styleUrl: './cadastro-atendimentos.component.scss',
+  providers: [MessageService]
 })
 export class CadastroAtendimentosComponent implements OnInit {
 
@@ -33,7 +36,8 @@ export class CadastroAtendimentosComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private petService: PetService,
-        private clienteService: ClienteService
+        private clienteService: ClienteService,
+        private messageService: MessageService
       ) {
         this.cadastroForm = this.fb.group({
           descricao: [null, Validators.required],
@@ -86,16 +90,26 @@ export class CadastroAtendimentosComponent implements OnInit {
           let atendimento: Atendimento = this.cadastroForm.value as Atendimento
           if(this.id) {
             atendimento.id = this.id;
-            this.atendimentoService.atualizar(this.id, atendimento).subscribe((pet) => {
-              console.log(pet);
+            this.atendimentoService.atualizar(this.id, atendimento).subscribe((atendimento) => {
+              this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cadastro atualizado com sucesso' });
+              setTimeout(() => {
+                this.voltar();
+              }, 250)
+            }, (error) => {
+              this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
             });
+            
           } else {
             this.atendimentoService.gravar(atendimento).subscribe((atendimento) => {
-              console.log(atendimento);
+              this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro concluido com sucesso' });
+              setTimeout(() => {
+                this.voltar();
+              }, 250)
+            }, (error) => {
+              this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
             });
           }
           this.cadastroForm.reset();
-          this.voltar();
         }
       }
     

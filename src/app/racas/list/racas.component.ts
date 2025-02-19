@@ -6,12 +6,13 @@ import { RacaService } from '../../services/raca/raca.service';
 import { Raca } from '../../models/raca.type';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-racas',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, ToastModule],
   templateUrl: './racas.component.html',
   styleUrl: './racas.component.scss',
   providers: [ConfirmationService, RacaService, MessageService]
@@ -48,7 +49,11 @@ export class RacasComponent implements OnInit {
       accept: () => {
         if(item.id) {
           this.racaService.apagarPorId(item.id).subscribe((item) => {
-            console.log("Excluido com Sucesso");
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro excluido com sucesso' });
+            this.carregarDados();
+          }, (error) => {
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro' });
+            this.carregarDados();
           })
         }
       },

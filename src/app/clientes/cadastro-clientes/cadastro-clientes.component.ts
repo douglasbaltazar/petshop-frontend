@@ -10,13 +10,16 @@ import { RadioButtonModule } from 'primeng/radiobutton'
 import { ClienteService } from '../../services/cliente/cliente.service';
 import { Cliente } from '../../models/cliente.type';
 import { Usuario } from '../../models/usuario.type';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-cadastro-clientes',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, PanelModule, RadioButtonModule],
+  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, PanelModule, RadioButtonModule, ToastModule],
   templateUrl: './cadastro-clientes.component.html',
-  styleUrl: './cadastro-clientes.component.scss'
+  styleUrl: './cadastro-clientes.component.scss',
+  providers: [MessageService]
 })
 export class CadastroClientesComponent implements OnInit {
   clienteForm: FormGroup;
@@ -26,7 +29,8 @@ export class CadastroClientesComponent implements OnInit {
     private fb: FormBuilder,
     private clienteService: ClienteService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.clienteForm = this.fb.group({
       nome: ['', [Validators.required, Validators.minLength(3)]],
@@ -60,7 +64,6 @@ export class CadastroClientesComponent implements OnInit {
 
   salvar(): void {
     if (this.clienteForm.valid) {
-      console.log('Dados salvos:', this.clienteForm.value as Usuario);
       let usuario: Usuario = {
         nome: this.clienteForm.value.nome,
         cpf: this.clienteForm.value.cpf,
@@ -72,15 +75,26 @@ export class CadastroClientesComponent implements OnInit {
       if(this.id) {
         cliente.id = this.id;
         this.clienteService.atualizar(this.id, cliente).subscribe((cliente) => {
-          console.log(cliente);
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro concluido com sucesso' });
+          setTimeout(() => {
+            this.voltar();
+          }, 250)
+        }, (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
         });
       } else {
         usuario.senha = this.clienteForm.value.senha
         this.clienteService.gravar(cliente).subscribe((cliente) => {
-          console.log(cliente);
+          this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro concluido com sucesso' });
+          setTimeout(() => {
+            this.voltar();
+          }, 250)
+        }, (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
         });
       }
       this.clienteForm.reset();
+      
     }
   }
 

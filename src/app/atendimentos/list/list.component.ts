@@ -7,11 +7,12 @@ import { AtendimentosService } from '../../services/atendimentos/atendimentos.se
 import { Atendimento } from '../../models/atendimento.type';
 import { Router } from '@angular/router';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule, DatePipe, CurrencyPipe],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, DatePipe, CurrencyPipe, ToastModule],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   providers: [ConfirmationService, AtendimentosService, MessageService]
@@ -50,7 +51,11 @@ export class ListComponent implements OnInit {
                 accept: () => {
                   if(item.id) {
                     this.atendimentoService.apagarPorId(item.id).subscribe((item) => {
-                      console.log("Excluido com Sucesso");
+                      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro excluido com sucesso' });
+                      this.carregarDados();
+                    }, (error) => {
+                      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro' });
+                      this.carregarDados();
                     })
                   }
                 },

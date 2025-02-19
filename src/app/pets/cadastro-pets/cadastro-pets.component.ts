@@ -11,13 +11,16 @@ import { Cliente } from '../../models/cliente.type';
 import { ClienteService } from '../../services/cliente/cliente.service';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-cadastro-pets',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, DropdownModule, CalendarModule],
+  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, DropdownModule, CalendarModule, ToastModule],
   templateUrl: './cadastro-pets.component.html',
-  styleUrl: './cadastro-pets.component.scss'
+  styleUrl: './cadastro-pets.component.scss',
+  providers: [MessageService]
 })
 export class CadastroPetsComponent implements OnInit {
   cadastroForm: FormGroup;
@@ -32,7 +35,8 @@ export class CadastroPetsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private racaService: RacaService,
-    private clienteService: ClienteService
+    private clienteService: ClienteService,
+    private messageService: MessageService
   ) {
     this.cadastroForm = this.fb.group({
       nome: [null, Validators.required],
@@ -79,16 +83,25 @@ export class CadastroPetsComponent implements OnInit {
 
   salvar(): void {
     if (this.cadastroForm.valid) {
-      console.log('Dados salvos:', this.cadastroForm.value as Pet);
       let pet: Pet = this.cadastroForm.value as Pet
       if(this.id) {
         pet.id = this.id;
         this.petService.atualizar(this.id, pet).subscribe((pet) => {
-          console.log(pet);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cadastro atualizado com sucesso' });
+          setTimeout(() => {
+            this.voltar();
+          }, 250)
+        }, (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
         });
       } else {
         this.petService.gravar(pet).subscribe((pet) => {
-          console.log(pet);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cadastro concluido com sucesso' });
+          setTimeout(() => {
+            this.voltar();
+          }, 250)
+        }, (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
         });
       }
       this.cadastroForm.reset();

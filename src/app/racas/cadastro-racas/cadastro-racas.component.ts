@@ -5,13 +5,16 @@ import { RacaService } from '../../services/raca/raca.service';
 import { ButtonModule } from 'primeng/button'
 import { InputTextModule } from 'primeng/inputtext'
 import { Raca } from '../../models/raca.type';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-cadastro-racas',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, InputTextModule],
+  imports: [ReactiveFormsModule, ButtonModule, InputTextModule, ToastModule],
   templateUrl: './cadastro-racas.component.html',
-  styleUrl: './cadastro-racas.component.scss'
+  styleUrl: './cadastro-racas.component.scss',
+  providers: [MessageService]
 })
 export class CadastroRacasComponent implements OnInit {
   cadastroForm: FormGroup;
@@ -21,7 +24,8 @@ export class CadastroRacasComponent implements OnInit {
     private fb: FormBuilder,
     private racaService: RacaService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.cadastroForm = this.fb.group({
       descricao: ['', [Validators.required, Validators.minLength(3)]]
@@ -50,18 +54,27 @@ export class CadastroRacasComponent implements OnInit {
 
   salvar(): void {
     if (this.cadastroForm.valid) {
-      console.log('Dados salvos:', this.cadastroForm.value as Raca);
       let raca: Raca = {
         descricao: this.cadastroForm.value.descricao,
       }
       if(this.id) {
         raca.id = this.id;
         this.racaService.atualizar(this.id, raca).subscribe((raca) => {
-          console.log(raca);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cadastro atualizado com sucesso' });
+          setTimeout(() => {
+            this.voltar();
+          }, 250)
+        }, (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
         });
       } else {
         this.racaService.gravar(raca).subscribe((raca) => {
-          console.log(raca);
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Cadastro atualizado com sucesso' });
+          setTimeout(() => {
+            this.voltar();
+          }, 250)
+        }, (error) => {
+          this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Houve algum erro.' });
         });
       }
       this.cadastroForm.reset();

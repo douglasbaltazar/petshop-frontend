@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { LoginResponse } from '../../models/login-response.type';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 
@@ -15,15 +15,25 @@ export class AuthService {
 
   canActivate(
     next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const authToken = sessionStorage.getItem('auth-token');
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> {
+    const authToken = sessionStorage.getItem('auth-token') || "";
+    return this.validate(authToken).pipe(
+      map((isValid: boolean) => {
+        if (isValid) {
+          return true;
+        } else {
+          return this.router.createUrlTree(['/']);
+        }
+      }),
+      catchError(() => {
+        return of(this.router.createUrlTree(['/']));
+      })
+    );
+  }
 
-    if (authToken) {
-      return true;
-    } else {
-      this.router.navigate(['/']);
-      return false;
-    }
+  validate(token: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/validate/${token}`);
   }
 
   login(cpf: string, password: string){

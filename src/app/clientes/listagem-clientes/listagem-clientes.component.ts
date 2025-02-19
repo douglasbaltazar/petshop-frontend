@@ -6,8 +6,6 @@ import { Cliente } from '../../models/cliente.type';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
-import { UsuarioService } from '../../services/usuario/usuario.service';
-import { Usuario } from '../../models/usuario.type';
 import { TagModule } from 'primeng/tag'
 import { PanelModule } from 'primeng/panel';
 import { EnderecosService } from '../../services/cliente/enderecos.service';
@@ -16,11 +14,12 @@ import { Endereco } from '../../models/endereco.type';
 import { Contato } from '../../models/contato.type';
 import { EditEnderecoComponent } from "../modals/edit-endereco/edit-endereco.component";
 import { EditContatoComponent } from "../modals/edit-contato/edit-contato.component";
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-listagem-clientes',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule, TagModule, PanelModule, EditEnderecoComponent, EditContatoComponent],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, TagModule, PanelModule, EditEnderecoComponent, EditContatoComponent, ToastModule],
   templateUrl: './listagem-clientes.component.html',
   styleUrl: './listagem-clientes.component.scss',
   providers: [ConfirmationService, ClienteService, MessageService]
@@ -83,6 +82,10 @@ expandedRows = {};
         if(item.id) {
           this.clienteService.apagarPorId(item.id).subscribe((item) => {
             console.log("Excluido com Sucesso");
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro excluido com sucesso' });
+            this.carregarDados();
+          }, (error) => {
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro' });
             this.carregarDados();
           })
         }
@@ -102,8 +105,11 @@ expandedRows = {};
 
   cadastrarEndereco(endereco: Endereco) {
     this.enderecoService.gravarEndereco(endereco, this.idCliente).subscribe((end) => {
-      console.log('Salvo', end);
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Endereço cadastrado com sucesso' });
       this.editEndereco = false;
+      this.carregarDados();
+    }, (error) => {
+      this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro' });
       this.carregarDados();
     })
   }
@@ -119,7 +125,10 @@ expandedRows = {};
       accept: () => {
         if(endereco.id) {
           this.enderecoService.apagarPorId(endereco.id).subscribe((item) => {
-            console.log("Excluido com Sucesso");
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro excluido com sucesso' });
+            this.carregarDados();
+          }, (error) => {
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro' });
             this.carregarDados();
           })
         }
@@ -131,7 +140,7 @@ expandedRows = {};
 
   cadastrarContato(contato: Contato) {
     this.contatosService.gravarContato(contato, this.idCliente).subscribe((end) => {
-      console.log('Salvo', end);
+      this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Contato cadastrado com sucesso' });
       this.editContato = false;
       this.carregarDados();
     })
@@ -148,7 +157,10 @@ expandedRows = {};
       accept: () => {
         if(endereco.id) {
           this.contatosService.apagarPorId(endereco.id).subscribe((item) => {
-            console.log("Excluido com Sucesso");
+            this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro excluido com sucesso' });
+            this.carregarDados();
+          }, (error) => {
+            this.messageService.add({ severity: 'error', summary: 'Erro', detail: 'Ocorreu um erro' });
             this.carregarDados();
           })
         }
