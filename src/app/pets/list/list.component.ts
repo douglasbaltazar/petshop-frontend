@@ -8,17 +8,26 @@ import { Pet } from '../../models/pet.type';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { ToastModule } from 'primeng/toast';
+import { TabelaPadraoComponent } from "../../tabela-padrao/tabela-padrao.component";
+import { Coluna } from '../../models/coluna.type';
+import { HasRoleDirective } from '../../directives/has-hole.directive';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule, DatePipe, ToastModule],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, HasRoleDirective, ToastModule, TabelaPadraoComponent],
   templateUrl: './list.component.html',
   styleUrl: './list.component.scss',
   providers: [ConfirmationService, PetService, MessageService]
 })
 export class ListComponent implements OnInit {
   items: Pet[] = [];
+
+  colunas: Coluna[] = [{ field: 'id', header: 'ID', width: '20%', type: 'number' },
+    { field: 'nome', header: 'Nome', width: '20%', type: 'text' },
+    { field: 'dataNascimento', header: 'Data Nascimento', width: '20%', type: 'date' },
+    { field: 'cliente.usuario.nome', header: 'Nome Tutor', width: '20%', type: 'text' }
+  ]
 
   constructor(private router: Router, private petService: PetService, private confirmationService: ConfirmationService,
        private messageService: MessageService
@@ -67,7 +76,7 @@ export class ListComponent implements OnInit {
         this.router.navigate(['pets/novo']);
       }
     
-      editar(id: number) {
-        this.router.navigate([`pets/${id}`])
+      editar(pet: Pet) {
+        this.router.navigate([`pets/${pet.id}`])
       }
 }

@@ -45,7 +45,6 @@ export class AuthService {
   getTokenInfo() {
     const token = sessionStorage.getItem('auth-token');
     if (token) {
-      console.log(JSON.parse(atob(token.split('.')[1])))
       return JSON.parse(atob(token.split('.')[1]));
     }
     return null;
@@ -53,17 +52,19 @@ export class AuthService {
   
   isAdmin(): boolean {
     const user = this.currentUserSubject.value;
+    console
     return user && user.perfil === 'Admin';
   }
 
-  login(cpf: string, password: string){
+  login(cpf: string, password: string) {
     return this.http.post<LoginResponse>(this.baseUrl + "/login", { cpf, password }).pipe(
       tap((value) => {
-        sessionStorage.setItem("auth-token", value.token)
-        sessionStorage.setItem("nome", value.nome),
-        sessionStorage.setItem("perfil", value.perfil)
+        sessionStorage.setItem("auth-token", value.token);
+        sessionStorage.setItem("nome", value.nome);
+        sessionStorage.setItem("perfil", value.perfil);
+        this.currentUserSubject.next(this.getTokenInfo());
       })
-    )
+    );
   }
 
   signup(nome: string, cpf: string, password: string, perfil: string = 'cliente'){
@@ -72,12 +73,14 @@ export class AuthService {
         sessionStorage.setItem("auth-token", value.token)
         sessionStorage.setItem("nome", value.nome),
         sessionStorage.setItem("perfil", value.perfil)
+        this.currentUserSubject.next(this.getTokenInfo());
       })
     )
   }
 
   logout() {
     sessionStorage.clear();
+    this.currentUserSubject.next(null);
     this.router.navigate(['/'])
   }
 }

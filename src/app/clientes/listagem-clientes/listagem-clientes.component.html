@@ -3,12 +3,14 @@
 <div class="dashboard">
   <div class="header">
     <h1>Clientes</h1>
-    <p-button
-      label="Cadastre um Novo"
-      icon="fa-solid fa-plus"
-      severity="primary"
-      (click)="cadastrar()"
-    ></p-button>
+    <ng-container *appHasRole="'Admin'">
+      <p-button
+        label="Cadastre um Novo"
+        icon="fa-solid fa-plus"
+        severity="primary"
+        (click)="cadastrar()"
+      ></p-button>
+    </ng-container>
   </div>
   <div class="card">
     <p-table
@@ -50,10 +52,12 @@
               icon="fa-solid fa-pen"
               severity="success"
               (click)="editar(item.id)"
+              *appHasRole="'Admin'"
             />
             <p-button
               icon="fa-solid fa-remove"
               severity="danger"
+              *appHasRole="'Admin'"
               (onClick)="deleteItem(item)"
             />
           </td>

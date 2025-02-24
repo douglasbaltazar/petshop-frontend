@@ -7,18 +7,25 @@ import { Raca } from '../../models/raca.type';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
+import { Coluna } from '../../models/coluna.type';
+import { TabelaPadraoComponent } from "../../tabela-padrao/tabela-padrao.component";
+import { HasRoleDirective } from '../../directives/has-hole.directive';
 
 
 @Component({
   selector: 'app-racas',
   standalone: true,
-  imports: [TableModule, ButtonModule, ConfirmDialogModule, ToastModule],
+  imports: [TableModule, ButtonModule, ConfirmDialogModule, ToastModule, TabelaPadraoComponent, HasRoleDirective],
   templateUrl: './racas.component.html',
   styleUrl: './racas.component.scss',
   providers: [ConfirmationService, RacaService, MessageService]
 })
 export class RacasComponent implements OnInit {
   items: Raca[] = [];
+
+  colunas: Coluna[] = [{ field: 'id', header: 'ID', width: '20%', type: 'number' },
+      { field: 'descricao', header: 'Descrição', width: '20%', type: 'text' }
+    ]
 
   constructor(private router: Router, private racaService: RacaService, private confirmationService: ConfirmationService,
      private messageService: MessageService
@@ -67,7 +74,7 @@ export class RacasComponent implements OnInit {
     this.router.navigate(['racas/novo']);
   }
 
-  editar(id: number) {
-    this.router.navigate([`racas/${id}`])
+  editar(raca: Raca) {
+    this.router.navigate([`racas/${raca.id}`])
   }
 }

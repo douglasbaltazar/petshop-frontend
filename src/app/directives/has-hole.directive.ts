@@ -2,7 +2,8 @@ import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from "@angula
 import { AuthService } from "../services/auth/auth.service";
 
 @Directive({
-  selector: '[appHasRole]'
+  selector: '[appHasRole]',
+  standalone: true
 })
 export class HasRoleDirective implements OnInit {
   @Input('appHasRole')
@@ -17,7 +18,6 @@ export class HasRoleDirective implements OnInit {
   
   ngOnInit() {
     const user = this.authService.getTokenInfo();
-    console.log(user);
     if (user && user.perfil === this.role) {
       this.viewContainer.createEmbeddedView(this.templateRef);
     } else {

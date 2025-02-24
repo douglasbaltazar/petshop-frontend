@@ -41,7 +41,7 @@ export class CadastroPetsComponent implements OnInit {
     this.cadastroForm = this.fb.group({
       nome: [null, Validators.required],
       dataNascimento: [null, Validators.required],
-      cliente: [null, Validators.required],
+      cliente: [],
       raca: [null, Validators.required]
     });
   }
@@ -58,16 +58,7 @@ export class CadastroPetsComponent implements OnInit {
   }
 
   carregarDados(): void {
-    if(this.id) {
-      this.petService.getDto(this.id!).subscribe((pet) => {
-        if (pet) {
-          this.cadastroForm.patchValue({
-            descricao: pet.nome
-          });
-        }
-      });
-
-    }
+    
 
     this.clienteService.listar().subscribe((clientes) => {
       if(clientes) {
@@ -79,6 +70,19 @@ export class CadastroPetsComponent implements OnInit {
         this.racas = racas;
       }
     })
+    if(this.id) {
+      this.petService.getDto(this.id!).subscribe((pet) => {
+        if (pet) {
+          this.cadastroForm.patchValue({
+            nome: pet.nome,
+            dataNascimento: pet.dataNascimento,
+            cliente: pet.cliente,
+            raca: pet.raca
+          });
+        }
+      });
+
+    }
   }
 
   salvar(): void {
